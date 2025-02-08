@@ -17,6 +17,7 @@
 #include <SDL.h>
 #include <stdio.h>
 #include <string.h>
+#include <unistd.h>
 
 #include "version.h"
 #include "glext.h"
@@ -544,7 +545,7 @@ int main(int argc, char *argv[])
 
 #ifdef __WII__
     chdir("/apps/neverball");
-    setenv("SDL_WII_JOYSTICK_SIDEWAYS", "1", 1);
+    SDL_setenv("SDL_WII_JOYSTICK_SIDEWAYS", "1", 1);
 #endif
 
     if (!fs_init(argv[0]))
