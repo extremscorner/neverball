@@ -1,6 +1,6 @@
 #! /bin/sh
 
-CONSOLE=wii
+CONSOLE=gamecube
 
 . /etc/profile.d/devkit-env.sh
 . "$DEVKITPRO/libogc2/${CONSOLE}vars.sh"
