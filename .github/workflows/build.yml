@@ -1,0 +1,39 @@
+name: Nightly build
+
+on:
+  schedule:
+    - cron: '0 0 * * *'
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Build Neverball
+    strategy:
+      matrix:
+        console: [gamecube, wii]
+    runs-on: ubuntu-latest
+    container: ghcr.io/extremscorner/libogc2:latest
+
+    steps:
+    - name: Install packages
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y neverball-data
+
+    - name: Checkout Neverball
+      uses: actions/checkout@main
+      with:
+        path: neverball
+        fetch-depth: 0
+
+    - name: Build Neverball
+      run: |
+        ./build-${{ matrix.console }}.sh
+        ./${{ matrix.console }}/make-package.sh
+      working-directory: neverball
+
+    - name: Upload artifacts
+      uses: actions/upload-artifact@main
+      with:
+        name: ${{ matrix.console }}-neverball
+        path: neverball/neverball.zip
