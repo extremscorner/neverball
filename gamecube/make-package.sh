@@ -8,6 +8,9 @@ OUTDIR="$TMPDIR/$NAME"
 SRCDIR="$(pwd)"
 
 mkdir -p "$OUTDIR"
+cp -a \
+    gamecube/opening.bnr \
+    "$OUTDIR"
 mkdir -p "$OUTDIR/data"
 cd "$OUTDIR/data"
 # assumes Debian or Ubuntu neverball-data=1.6.0+git20180603-3build2
@@ -22,7 +25,7 @@ cp -a \
 cd -
 mkdir -p "$OUTDIR/.neverball-dev"
 cp gamecube/neverballrc "$OUTDIR/.neverball-dev/"
-elf2dol "$NAME.elf" "$OUTDIR/$NAME.dol"
+elf2dol "$NAME.elf" "$OUTDIR/default.dol"
 
 cd $TMPDIR
 zip -r "$NAME.zip" "$NAME"
